@@ -14,7 +14,7 @@ class TipsController < ApplicationController
 
   def update
     id = params[:id]
-    render json: Tip.update!(id, tip_params)
+    render json: Tip.update(id, tip_params)
   end
 
   def destroy
@@ -25,6 +25,6 @@ class TipsController < ApplicationController
   private
 
     def tip_params
-      params.require(:tip).permit(:restaurant, :food_types, :description, :date, :user_id)
+      params.require(:tip).permit(:restaurant, :food_types, :description, :user_id)
     end
 end
