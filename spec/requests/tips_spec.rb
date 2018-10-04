@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "Tips", type: :request do
   before(:each) do
     @user1 = User.create(email: 'test@example.com', password: 'testpassword', password_confirmation: 'testpassword')
-
   end
 
   # INDEX

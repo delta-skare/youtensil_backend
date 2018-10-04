@@ -1,12 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Profiles", type: :request do
-  before(:each) do
-    @user1 = User.create(email:'test@example.com', password:'password2', password_confirmation:'password2')
-    @user2 = User.create(email: 'test2@example.com', password: 'testpassword2' ,password_confirmation: 'testpassword2')
-    @profile1 = Profile.create(user_id: @user1.id, username: 'testuser', food_types: 'fish', bio: "I'm not real...")
-    @profile2 = Profile.create(user_id: @user2.id, username: 'testuser2', food_types: 'landfish', bio: "I'm also not real...")
-  end
+  let(:user1) { User.create(email:'test@example.com', password:'password2', password_confirmation:'password2') }
+  let(:user2) { User.create(email: 'test2@example.com', password: 'testpassword2' ,password_confirmation: 'testpassword2') }
+  let!(:profile1) { Profile.create(user_id: user1.id, username: 'testuser', food_types: 'fish', bio: "I'm not real...") }
+  let!(:profile2) { Profile.create(user_id: user2.id, username: 'testuser2', food_types: 'landfish', bio: "I'm also not real...") }
 
   # INDEX
   it 'gets a list of Profiles' do
@@ -30,7 +28,7 @@ RSpec.describe "Profiles", type: :request do
     # The params we are going to send with the request
     profile_params = {
       profile: {
-       user_id: @user2.id, username: 'testuser3', food_types: 'test food', bio: 'test bio'
+       user_id: user2.id, username: 'testuser3', food_types: 'test food', bio: 'test bio'
       }
     }
 
@@ -52,7 +50,7 @@ RSpec.describe "Profiles", type: :request do
     # Create two profiles
 
     # Send the request to the server
-    get "/profiles/#{@profile2.id}"
+    get "/profiles/#{profile2.id}"
 
     # Assure that we get a success back
     expect(response).to be_successful
@@ -70,12 +68,12 @@ RSpec.describe "Profiles", type: :request do
     # we will apply these changes to the profile we create
     profile_params = {
       profile: {
-       user_id: @user2.id, username: 'testuser9000', food_types: 'update food', bio: 'update bio'
+       user_id: user2.id, username: 'testuser9000', food_types: 'update food', bio: 'update bio'
       }
     }
 
     # Apply changes
-    patch "/profiles/#{@profile2.id}", params: profile_params
+    patch "/profiles/#{profile2.id}", params: profile_params
 
     json = JSON.parse(response.body)
     expect(response).to have_http_status(200)
@@ -90,10 +88,10 @@ RSpec.describe "Profiles", type: :request do
 
     # Create two profiles
 
-    get "/profiles/#{@profile1.id}"
+    get "/profiles/#{profile1.id}"
     expect(response).to be_successful
 
-    delete "/profiles/#{@profile1.id}"
+    delete "/profiles/#{profile1.id}"
 
     # Assure an profile was deleted
     get '/profiles'
