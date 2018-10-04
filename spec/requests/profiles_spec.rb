@@ -1,13 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "Profiles", type: :request do
+  before(:each) do
+    @user1 = User.create(email:'test@example.com', password:'password2', password_confirmation:'password2')
+    @user2 = User.create(email: 'test2@example.com', password: 'testpassword2' ,password_confirmation: 'testpassword2')
+    @profile1 = Profile.create(user_id: @user1.id, username: 'testuser', food_types: 'fish', bio: "I'm not real...")
+    @profile2 = Profile.create(user_id: @user2.id, username: 'testuser2', food_types: 'landfish', bio: "I'm also not real...")
+  end
+
   # INDEX
   it 'gets a list of Profiles' do
-    user1 = User.create(email: 'test@example.com', password: 'testpassword')
-    user2 = User.create(email: 'test2@example.com', password: 'testpassword2')
-    # Create a new profile in the Test Database (not the same one as development)
-    Profile.create(user_id: user1.id, username: 'testuser', food_types: 'fish', bio: "I'm not real...")
-    Profile.create(user_id: user2.id, username: 'testuser2', food_types: 'landfish', bio: "I'm also not real...")
+    # Create 2 new profiles in the Test Database (not the same one as development)
 
     # Make a request to the API
     get '/profiles'
@@ -24,12 +27,11 @@ RSpec.describe "Profiles", type: :request do
 
   # CREATE
   it 'creates a profile' do
-    user1 = User.create(email: 'test@example.com', password: 'testpassword')
     # The params we are going to send with the request
     profile_params = {
-     profile: {
-       user_id: user1.id, username: 'testuser', food_types: 'test food', bio: 'test bio'
-     }
+      profile: {
+       user_id: @user2.id, username: 'testuser3', food_types: 'test food', bio: 'test bio'
+      }
     }
 
     # Send the request to the server
@@ -39,22 +41,18 @@ RSpec.describe "Profiles", type: :request do
     expect(response).to be_successful
 
     # Look up the profile we expect to be created in the Database
-    new_profile = Profile.first
+    new_profile = Profile.last
 
     # Assure that the created profile has the correct attributes
-    expect(new_profile.username).to eq('testuser')
+    expect(new_profile.username).to eq('testuser3')
   end
 
   # SHOW
   it 'gets a specified profile' do
-    user1 = User.create(email: 'test@example.com', password: 'password2')
     # Create two profiles
-    profile1 = Profile.create(user_id: user1.id, username: 'testuser1', food_types: 'test food', bio: 'test bio')
-
-    profile2 = Profile.create(user_id: user1.id, username: 'testuser2', food_types: 'test food', bio: 'test bio')
 
     # Send the request to the server
-    get "/profiles/#{profile2.id}"
+    get "/profiles/#{@profile2.id}"
 
     # Assure that we get a success back
     expect(response).to be_successful
@@ -69,40 +67,33 @@ RSpec.describe "Profiles", type: :request do
 
   # UPDATE
   it 'can make changes to an existing profile' do
-    user1 = User.create(email:'test@example.com', password:'password2')
     # we will apply these changes to the profile we create
     profile_params = {
-     profile: {
-       user_id: user1.id, username: 'testuser', food_types: 'test food', bio: 'test bio'
-     }
+      profile: {
+       user_id: @user2.id, username: 'testuser9000', food_types: 'update food', bio: 'update bio'
+      }
     }
 
-    # create profile
-    update_profile = Profile.create( user_id: user1.id, username: 'yuh', food_types: 'yuh', bio: 'yuh')
-
     # Apply changes
-    patch "/profiles/#{update_profile.id}", params: profile_params
+    patch "/profiles/#{@profile2.id}", params: profile_params
 
     json = JSON.parse(response.body)
     expect(response).to have_http_status(200)
 
     # Make sure things were changed properly
-    expect(json['username']).to eq('testuser')
+    expect(json['username']).to eq('testuser9000')
 
   end
 
   # DESTROY
   it 'can destroy a specified profile' do
-    user1 = User.create(email:'test@example.com', password:'password2')
+
     # Create two profiles
-    profile1 = Profile.create(user_id: user1.id, username: 'testuser1', food_types: 'test food', bio: 'test bio')
 
-    profile2 = Profile.create(user_id: user1.id, username: 'testuser2', food_types: 'test food', bio: 'test bio')
-
-    get "/profiles/#{profile1.id}"
+    get "/profiles/#{@profile1.id}"
     expect(response).to be_successful
 
-    delete "/profiles/#{profile1.id}"
+    delete "/profiles/#{@profile1.id}"
 
     # Assure an profile was deleted
     get '/profiles'
