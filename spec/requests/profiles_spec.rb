@@ -60,7 +60,7 @@ RSpec.describe "Profiles", type: :request do
 
     # Assure that we correct result back
     # expect(json).to include('username' => 'testuser2')
-    expect(json[0]['username']).to eq('testuser2')
+    expect(json['username']).to eq('testuser2')
   end
 
   # UPDATE
