@@ -3,7 +3,7 @@ require 'devise/jwt/test_helpers'
 
 RSpec.describe "Users", type: :request do
   describe "GET /users/sign_in" do
-    let!(:user){ User.create(email: 'jill@jiller.com', password: 'secret') }
+    let!(:user){ User.create(email: 'jill@jiller.com', password: 'secret', password_confirmation: 'secret') }
     it "logs in a user" do
       payload = {
         user: {
