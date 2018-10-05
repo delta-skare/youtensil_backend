@@ -46,11 +46,11 @@ RSpec.describe "Profiles", type: :request do
   end
 
   # SHOW
-  it 'gets a specified profile' do
+  it 'gets a specified profile by their user ID' do
     # Create two profiles
 
     # Send the request to the server
-    get "/profiles/#{profile2.id}"
+    get "/profiles/#{profile2.user_id}"
 
     # Assure that we get a success back
     expect(response).to be_successful
@@ -60,7 +60,7 @@ RSpec.describe "Profiles", type: :request do
 
     # Assure that we correct result back
     # expect(json).to include('username' => 'testuser2')
-    expect(json['username']).to eq('testuser2')
+    expect(json[0]['username']).to eq('testuser2')
   end
 
   # UPDATE
