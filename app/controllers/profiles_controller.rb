@@ -9,7 +9,7 @@ class ProfilesController < ApplicationController
 
   def show
     id = params[:id]
-    render json: Profile.find(id)
+    render json: Profile.where(user_id: id)
   end
 
   def update
