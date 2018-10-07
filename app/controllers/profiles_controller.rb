@@ -7,9 +7,15 @@ class ProfilesController < ApplicationController
     render json: Profile.create(profile_params)
   end
 
+  # used to automatically create a profile after registration
+  # as well as view profiles
   def show
     id = params[:id]
-    render json: Profile.find_by_user_id(id)
+    profile = Profile.find_or_create_by(user_id: id) do |profile|
+      profile.bio = 'Information about you!'
+      profile.food_types = 'Good food, great food, delicious food'
+    end
+    render json: profile
   end
 
   def update

@@ -8,9 +8,9 @@ RSpec.describe Profile, type: :model do
   it "is valid with valid attributes" do
     expect(subject).to be_valid
   end
-  it "is not valid without a username" do
+  it "is valid without a username" do
     subject.username = nil
-    expect(subject).to_not be_valid
+    expect(subject).to be_valid
   end
   it "is not valid without a bio" do
     subject.bio = nil
