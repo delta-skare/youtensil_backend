@@ -25,6 +25,6 @@ class TipsController < ApplicationController
   private
 
     def tip_params
-      params.require(:tip).permit(:restaurant, :food_types, :description, :user_id)
+      params.require(:tip).permit(:restaurant, :food_types, :description, :user_id, :image)
     end
 end
