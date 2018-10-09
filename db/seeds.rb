@@ -11,5 +11,5 @@ Profile.all.each {|profile| profile.destroy}
 Tip.all.each {|tip| tip.destroy}
 
 user1 = User.create(email:'youtensil@example.com',password:'food123', password_confirmation: 'food123')
-Profile.create(user_id: user1.id, username: 'testuser2', food_types: 'landfish', bio: "I'm also not real...")
-Tip.create(user_id: user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt")
+Profile.create(user_id: user1.id, username: 'testuser2', food_types: 'landfish', bio: "I'm also not real...", image: "http://i.ebayimg.com/images/i/111130995742-0-1/s-l1000.jpg")
+Tip.create(user_id: user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "http://i.ebayimg.com/images/i/111130995742-0-1/s-l1000.jpg")
