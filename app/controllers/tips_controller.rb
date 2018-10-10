@@ -12,6 +12,10 @@ class TipsController < ApplicationController
     render json: Tip.find(id)
   end
 
+  def show_user_tips
+    render json: Tip.where("user_id = ?", params[:user_id])
+  end
+
   def update
     id = params[:id]
     render json: Tip.update(id, tip_params)
