@@ -14,4 +14,5 @@ user1 = User.create(email:'youtensil@example.com',password:'food123', password_c
 gambino = User.create(email:'gambino@example.com',password:'america', password_confirmation: 'america')
 Profile.create(user_id: user1.id, username: 'testuser2', food_types: 'landfish', bio: "I'm also not real...", image: "http://i.ebayimg.com/images/i/111130995742-0-1/s-l1000.jpg", following: "")
 Profile.create(user_id: gambino.id, username: 'Childish Gambino', food_types: 'burgers, sushi, fries', bio: "Make fire erry day", image: "https://firebasestorage.googleapis.com/v0/b/youtencil-a36fd.appspot.com/o/profile-images%2Fdonald%20glover%20.jpg?alt=media&token=864cdeb4-6dbd-4005-ad32-df58ffb9faaf", following: "")
-Tip.create(user_id: user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "http://i.ebayimg.com/images/i/111130995742-0-1/s-l1000.jpg")
+Tip.create(user_id: user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "https://lh4.ggpht.com/Q4YQkgk27nGTWvxvJ1vMl8qCYiikK6lziLguO3zNOat1UfzQykZnPmL-L9nkyVGG28o=w300")
+Tip.create(user_id: gambino.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "http://i.ebayimg.com/images/i/111130995742-0-1/s-l1000.jpg")

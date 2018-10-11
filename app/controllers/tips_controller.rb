@@ -16,6 +16,12 @@ class TipsController < ApplicationController
     render json: Tip.where("user_id = ?", params[:user_id])
   end
 
+  def show_following_tips
+    following = params[:following].split(",")
+    test = following.map { |e| e.to_i }
+    render json: Tip.where("user_id in (?)", test)
+  end
+
   def update
     id = params[:id]
     render json: Tip.update(id, tip_params)
