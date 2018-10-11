@@ -14,6 +14,7 @@ class ProfilesController < ApplicationController
     profile = Profile.find_or_create_by(user_id: id) do |profile|
       profile.bio = 'Information about you!'
       profile.food_types = 'Good food, great food, delicious food'
+      profile.following = ""
     end
     render json: profile
   end
@@ -31,6 +32,6 @@ class ProfilesController < ApplicationController
   private
 
     def profile_params
-      params.require(:profile).permit(:username, :food_types, :bio, :user_id, :image)
+      params.require(:profile).permit(:username, :food_types, :bio, :user_id, :image, :following)
     end
 end
