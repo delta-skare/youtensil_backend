@@ -8,8 +8,8 @@ RSpec.describe "Tips", type: :request do
   # INDEX
   it 'gets a list of Tips' do
     # Create a new tip in the Test Database (not the same one as development)
-    Tip.create(user_id: @user1.id, restaurant: 'LEARN Acadameal', food_types: 'codefish', description: "Although it may look weird at first glance, Chef Alyssa's fried unicorn actually tastes pretty good; they have a limited supply every day so if you go later in the day you gotta Hope they haven't run out. Anything made by Chef Jez is a Go! All of Chef Damon's food tastes like Lemmons...")
-    Tip.create(user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt")
+    Tip.create(user_id: @user1.id, restaurant: 'LEARN Acadameal', food_types: 'codefish', description: "Although it may look weird at first glance, Chef Alyssa's fried unicorn actually tastes pretty good; they have a limited supply every day so if you go later in the day you gotta Hope they haven't run out. Anything made by Chef Jez is a Go! All of Chef Damon's food tastes like Lemmons...", image: "learn.jpg")
+    Tip.create(user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "ralphs.jpg")
 
     # Make a request to the API
     get '/tips'
@@ -29,7 +29,7 @@ RSpec.describe "Tips", type: :request do
     # The params we are going to send with the request
     tip_params = {
      tip: {
-       user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt"
+       user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "img.jpg"
      }
     }
 
@@ -49,8 +49,8 @@ RSpec.describe "Tips", type: :request do
   # SHOW
   it 'gets a specified tip' do
     # Create two tips
-    tip1 = Tip.create(user_id: @user1.id, restaurant: 'LEARN Acadameal', food_types: 'codefish', description: "Although it may look weird at first glance, Chef Alyssa's fried unicorn actually tastes pretty good; they have a limited supply every day so if you go later in the day you gotta Hope they haven't run out. Anything made by Chef Jez is a Go! All of Chef Damon's food tastes like Lemmons...")
-    tip2 = Tip.create(user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt")
+    tip1 = Tip.create(user_id: @user1.id, restaurant: 'LEARN Acadameal', food_types: 'codefish', description: "Although it may look weird at first glance, Chef Alyssa's fried unicorn actually tastes pretty good; they have a limited supply every day so if you go later in the day you gotta Hope they haven't run out. Anything made by Chef Jez is a Go! All of Chef Damon's food tastes like Lemmons...", image: "learn.jpg")
+    tip2 = Tip.create(user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "ralphs.jpg")
 
     # Send the request to the server
     get "/tips/#{tip2.id}"
@@ -71,12 +71,12 @@ RSpec.describe "Tips", type: :request do
     # we will apply these changes to the tip we create
     tip_params = {
      tip: {
-       user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt"
+       user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "ralphs.jpg"
      }
     }
 
     # create tip
-    update_tip = Tip.create( user_id: @user1.id, restaurant: 'yuh', food_types: 'yuh', description: 'yuh')
+    update_tip = Tip.create( user_id: @user1.id, restaurant: 'yuh', food_types: 'yuh', description: 'yuh', image: 'img.jpg')
 
     # Apply changes
     patch "/tips/#{update_tip.id}", params: tip_params
@@ -92,8 +92,8 @@ RSpec.describe "Tips", type: :request do
   # DESTROY
   it 'can destroy a specified tip' do
     # Create two tips
-    tip1 = Tip.create(user_id: @user1.id, restaurant: 'LEARN Acadameal', food_types: 'codefish', description: "Although it may look weird at first glance, Chef Alyssa's fried unicorn actually tastes pretty good; they have a limited supply every day so if you go later in the day you gotta Hope they haven't run out. Anything made by Chef Jez is a Go! All of Chef Damon's food tastes like Lemmons...")
-    tip2 = Tip.create(user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt")
+    tip1 = Tip.create(user_id: @user1.id, restaurant: 'LEARN Acadameal', food_types: 'codefish', description: "Although it may look weird at first glance, Chef Alyssa's fried unicorn actually tastes pretty good; they have a limited supply every day so if you go later in the day you gotta Hope they haven't run out. Anything made by Chef Jez is a Go! All of Chef Damon's food tastes like Lemmons...", image: 'learn.jpg')
+    tip2 = Tip.create(user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: 'ralphs.jpg')
 
     get "/tips/#{tip1.id}"
     expect(response).to be_successful
