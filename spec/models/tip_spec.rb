@@ -4,7 +4,7 @@ RSpec.describe Tip, type: :model do
   before(:each) do
     @user1 = User.create(email: 'foodie@example.com', password: 'testy123', password_confirmation: 'testy123')
   end
-  subject { described_class.new(user_id: @user1.id, description: "I'm a tip", food_types: 'good food, bad food', restaurant: 'Kitchen') }
+  subject { described_class.new(user_id: @user1.id, description: "I'm a tip", food_types: 'good food, bad food', restaurant: 'Kitchen', image: 'image.jpg') }
   it "is valid with valid attributes" do
     expect(subject).to be_valid
   end
