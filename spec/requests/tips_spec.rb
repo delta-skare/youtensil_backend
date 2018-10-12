@@ -28,9 +28,9 @@ RSpec.describe "Tips", type: :request do
   it 'creates a tip' do
     # The params we are going to send with the request
     tip_params = {
-     tip: {
-       user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "img.jpg"
-     }
+      tip: {
+        user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "img.jpg"
+      }
     }
 
     # Send the request to the server
@@ -70,9 +70,9 @@ RSpec.describe "Tips", type: :request do
   it 'can make changes to an existing tip' do
     # we will apply these changes to the tip we create
     tip_params = {
-     tip: {
-       user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "ralphs.jpg"
-     }
+      tip: {
+        user_id: @user1.id, restaurant: "Ralph's", food_types: 'various', description: "The pizza is dank and doesn't taste burnt", image: "ralphs.jpg"
+      }
     }
 
     # create tip
