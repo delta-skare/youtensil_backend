@@ -1,6 +1,6 @@
 class TipsController < ApplicationController
   def index
-    render json: Tip.all
+    render json: Tip.all.order(:updated_at).reverse_order
   end
 
   def create
@@ -13,13 +13,13 @@ class TipsController < ApplicationController
   end
 
   def show_user_tips
-    render json: Tip.where("user_id = ?", params[:user_id])
+    render json: Tip.where("user_id = ?", params[:user_id]).order(:updated_at).reverse_order
   end
 
   def show_following_tips
     following = params[:following].split(",")
     test = following.map { |e| e.to_i }
-    render json: Tip.where("user_id in (?)", test)
+    render json: Tip.where("user_id in (?)", test).order(:updated_at).reverse_order
   end
 
   def update
